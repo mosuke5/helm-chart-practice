@@ -1,0 +1,24 @@
+applications:
+  image: "my-image"
+  imageTag: "v1.0"
+  configs:
+    - name: 0001-deployment
+      ipaddress: 192.168.1.1
+      password: aiueo
+      token: xxxxxxxxx
+    - name: 0002-deployment
+      ipaddress: 192.168.1.2
+      password: kakikukeko
+      token: xxxxxxxxx
+    - name: 0003-deployment
+      ipaddress: 192.168.1.3
+      password: sasisuseso
+      token: xxxxxxxxx
+    - name: 0004-deployment
+      ipaddress: 192.168.1.4
+      password: tatituteto
+      token: xxxxxxxxx
+    - name: 0005-deployment
+      ipaddress: 192.168.1.5
+      password: naninuneno
+      token: xxxxxxxxx

@@ -1,0 +1,48 @@
+{{- range .Values.applications.configs }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .name }}
+type: Opaque
+data:
+  ipaddress: {{ .ipaddress | b64enc }}
+  password: {{ .password | b64enc }}
+  token: {{ .token | b64enc }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .name }}
+  name: {{ .name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      containers:
+      - image: "{{ $.Values.applications.image }}:{{ $.Values.applications.imageTag }}"
+        name: {{ .name }}
+        env:
+        - name: IPADDRESS
+          valueFrom:
+            secretKeyRef:
+              name: {{ .name }}
+              key: ipaddress
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .name }}
+              key: password
+        - name: TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: {{ .name }}
+              key: token
+{{- end }}
